@@ -3,7 +3,6 @@ from django.urls import reverse_lazy
 from .models import NewsStory
 from .forms import StoryForm
 
-
 class IndexView(generic.ListView):
     template_name = 'news/index.html'
     context_object_name = "all_stories"
@@ -17,8 +16,7 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['latest_stories'] = NewsStory.objects.all()[:4]
         return context
-
-    
+   
 class StoryView(generic.DetailView):   
     model = NewsStory   
     template_name = 'news/story.html'
@@ -33,4 +31,3 @@ class AddStoryView(generic.CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-    
